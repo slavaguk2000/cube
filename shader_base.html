@@ -1,0 +1,63 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+	<style>
+		/* We want our scene to span the entire window */
+		body { margin: 0; }
+	</style>
+</heda>
+<body>
+	<script id="fragShader" type="shader-code">
+		void main() {
+			vec3 col = 0.5 + 0.5*sin(iTime+uv.xyx+vec3(0,2,4)); 
+			gl_FragColor = vec4(col, 1.0);
+		}
+	</script>
+	<script>
+		//@author Omar Shehata. 2015.
+		//We are loading the Three.js library from the cdn here: http://cdnjs.com/libraries/three.js/
+		var scene;
+		var camera;
+		var renderer;
+
+		function scene_setup(){
+			//This is all code needed to set up a basic ThreeJS scene
+
+			//First we initialize the scene and our camera
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			//We create the WebGL renderer and add it to the document
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+		}
+
+		scene_setup();
+
+		//Add your code here!
+				
+		var shaderCode = document.getElementById("fragShader").innerHTML;
+
+
+		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var material = new THREE.MeshBasicMaterial( {fragmentShader:shaderCode} );// Сделаем его зелёным
+		var cube = new THREE.Mesh( geometry, material );
+		// Добавляем куб на экран
+		scene.add( cube );
+		cube.position.z = -3;// Сдвигаем куб назад, чтобы его было видно
+
+		//Render everything!
+		function render() {
+			cube.rotation.x += 0.01;
+			cube.rotation.y += 0.02;
+			cube.rotation.z += 0.03;
+
+			requestAnimationFrame( render );
+			renderer.render( scene, camera );
+		}
+		render();
+	</script>
+	
+</body>
+</html>

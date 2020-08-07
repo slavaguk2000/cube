@@ -1,0 +1,17 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "description": "d5ly archiiver",
+  "main": "server.js",
+  "author": "Guk Viacheslav <slavaguk2000@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "pako": "^1.0.11",
+    "wasm-flate": "^1.0.2-browser"
+  },
+  "repository": "https://github.com/slavaguk2000/compare_deflates.git"
+}
